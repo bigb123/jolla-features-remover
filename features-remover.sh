@@ -9,10 +9,14 @@ if [ "root" != "$(whoami)" ]; then
 	exit 1
 fi
 
+
+unset MOUNT_SD
+MOUNT_SD="/usr/sbin/mount-sd.sh"
+
+
+
 ###
-#
 # Remove volume warning
-#
 ###
 
 # create backup
@@ -34,10 +38,9 @@ else
 	exit 3
 fi
 
+
 ###
-#
 # Remove word prediction
-#
 ###
 
 # backup 
@@ -67,3 +70,34 @@ else
   echo "Cannot restart keyboard service"
   exit 6
 fi
+
+
+###
+# Change mount options (mask for files and directories for sd card
+###
+
+#backup 
+cp "$MOUNT_SD" "${MOUNT_SD}.bak"
+if [ "0" == "$?" ]; then
+  echo "Backup created for $MOUNT_SD"
+else
+  echo "Cannot create backup for $word_prediction"
+  exit 7
+fi
+
+# replace
+sed -i s:'DEVNAME=$2':'DEVNAME=$2\n\n# trying to mount bind owncloud directory (on sd) to dir on sd\nunset MASK\nMASK="fmask=0002,dmask=0002"':g
+if [ "0" != "$?" ]; then
+  echo "Cannot add variables in $MOUNT_SD with sed"
+  exit 8
+fi
+
+sed -i s:'mount ${DEVNAME} $MNT/${UUID} -o uid=$DEF_UID,gid=$DEF_GID,$MOUNT_OPTS,utf8,flush,discard || /bin/rmdir $MNT/${UUID}':'mount ${DEVNAME} $MNT/${UUID} -o uid=$DEF_UID,gid=$DEF_GID,$MOUNT_OPTS,utf8,flush,discard,$MASK || /bin/rmdir $MNT/${UUID}\n      mount --bind  $MNT/${UUID}/owncloud/ /home/nemo/android_storage/owncloud':g
+if [ "0" != "$?" ]; then
+	echo "Cannot replace mount options in $MOUNT_SD with sed"
+	exit 9
+fi
+
+echo "Restarting machine"
+reboot
+
