@@ -26,7 +26,7 @@ else
 fi
 
 # change setting
-sed -i s/mode-list\ =\ lineout,hs/mode-list\ =\ lineout/ "$vol_warning_path"
+sed -i s/mode-list\ =\ lineout,hs/mode-list\ =\/ "$vol_warning_path"
 if [ "0" == "$?"  ]; then
 	echo "Changes saved for $vol_warning_path"
 else
