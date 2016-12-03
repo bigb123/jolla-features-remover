@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Script to remove headphone high level warning and word prediction
-#
+# It also changes sd card mount rights (umask and fmask 0002) 
 #
 
 if [ "root" != "$(whoami)" ]; then
@@ -73,7 +73,7 @@ fi
 
 
 ###
-# Change mount options (mask for files and directories for sd card
+# Change mount options (mask for files and directories for sd card)
 ###
 
 #backup 
@@ -96,6 +96,8 @@ sed -i s:'mount ${DEVNAME} $MNT/${UUID} -o uid=$DEF_UID,gid=$DEF_GID,$MOUNT_OPTS
 if [ "0" != "$?" ]; then
 	echo "Cannot replace mount options in $MOUNT_SD with sed"
 	exit 9
+else
+	echo "Mount options (fmask and dmask) for sd card added"
 fi
 
 echo "Restarting machine"
