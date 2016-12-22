@@ -86,13 +86,13 @@ else
 fi
 
 # replace
-sed -i s:'DEVNAME=$2':'DEVNAME=$2\n\n# trying to mount bind owncloud directory (on sd) to dir on sd\nunset MASK\nMASK="fmask=0002,dmask=0002"':g
+sed -i s:'DEVNAME=$2':'DEVNAME=$2\n\n# trying to mount bind owncloud directory (on sd) to dir on sd\nunset MASK\nMASK="fmask=0002,dmask=0002"':g "$MOUNT_SD"
 if [ "0" != "$?" ]; then
   echo "Cannot add variables in $MOUNT_SD with sed"
   exit 8
 fi
 
-sed -i s:'mount ${DEVNAME} $MNT/${UUID} -o uid=$DEF_UID,gid=$DEF_GID,$MOUNT_OPTS,utf8,flush,discard || /bin/rmdir $MNT/${UUID}':'mount ${DEVNAME} $MNT/${UUID} -o uid=$DEF_UID,gid=$DEF_GID,$MOUNT_OPTS,utf8,flush,discard,$MASK || /bin/rmdir $MNT/${UUID}\n      mount --bind  $MNT/${UUID}/owncloud/ /home/nemo/android_storage/owncloud':g
+sed -i s:'mount ${DEVNAME} $MNT/${UUID} -o uid=$DEF_UID,gid=$DEF_GID,$MOUNT_OPTS,utf8,flush,discard || /bin/rmdir $MNT/${UUID}':'mount ${DEVNAME} $MNT/${UUID} -o uid=$DEF_UID,gid=$DEF_GID,$MOUNT_OPTS,utf8,flush,discard,$MASK || /bin/rmdir $MNT/${UUID}\n      mount --bind  $MNT/${UUID}/owncloud/ /home/nemo/android_storage/owncloud':g "$MOUNT_SD"
 if [ "0" != "$?" ]; then
 	echo "Cannot replace mount options in $MOUNT_SD with sed"
 	exit 9
