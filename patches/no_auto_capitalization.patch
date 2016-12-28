@@ -1,0 +1,10 @@
+--- /usr/share/maliit/plugins/com/jolla/KeyboardBase.qml.bak	2016-12-28 01:57:14.355739760 +0100
++++ /usr/share/maliit/plugins/com/jolla/KeyboardBase.qml	2016-12-28 01:59:22.662651747 +0100
+@@ -389,6 +389,7 @@
+     }
+ 
+     function applyAutocaps() {
++        MInputMethodQuick.autoCapitalizationEnabled = false;
+         if (MInputMethodQuick.surroundingTextValid
+                 && MInputMethodQuick.contentType === Maliit.FreeTextContentType
+                 && MInputMethodQuick.autoCapitalizationEnabled

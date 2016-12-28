@@ -1,0 +1,75 @@
+--- /usr/share/maliit/plugins/com/jolla/layouts/layouts.conf.bak	2016-12-02 11:45:19.252768185 +0100
++++ /usr/share/maliit/plugins/com/jolla/layouts/layouts.conf	2016-12-28 01:27:44.341966391 +0100
+@@ -1,72 +1,58 @@
+ [da.qml]
+ name=Dansk
+ languageCode=DA
+-handler=Xt9InputHandler.qml
+ 
+ [de.qml]
+ name=Deutsch
+ languageCode=DE
+-handler=Xt9InputHandler.qml
+ 
+ [en.qml]
+ name=English
+ languageCode=EN
+-handler=Xt9InputHandler.qml
+ 
+ [es.qml]
+ name=Español
+ languageCode=ES
+-handler=Xt9InputHandler.qml
+ 
+ [fi.qml]
+ name=Suomi
+ languageCode=FI
+-handler=Xt9InputHandler.qml
+ 
+ [fr.qml]
+ name=Français
+ languageCode=FR
+-handler=Xt9InputHandler.qml
+ 
+ [it.qml]
+ name=Italiano
+ languageCode=IT
+-handler=Xt9InputHandler.qml
+ 
+ [nl.qml]
+ name=Nederlands
+ languageCode=NL
+-handler=Xt9InputHandler.qml
+ 
+ [no.qml]
+ name=Norsk
+ languageCode=NO
+-handler=Xt9InputHandler.qml
+ 
+ [pl.qml]
+ name=Polski
+ languageCode=PL
+-handler=Xt9InputHandler.qml
+ 
+ [pt.qml]
+ name=Português
+ languageCode=PT
+-handler=Xt9InputHandler.qml
+ 
+ [ru.qml]
+ name=Русский
+ languageCode=RU
+-handler=Xt9InputHandler.qml
+ 
+ [sv.qml]
+ name=Svenska
+ languageCode=SV
+-handler=Xt9InputHandler.qml
+ 
+ [tr.qml]
+ name=Türkçe
+ languageCode=TR
+-handler=Xt9InputHandler.qml
+ 
+ [zh_cn_pinyin.qml]
+ name=中文(拼音)
