@@ -115,14 +115,14 @@ remove_word_prediction() {
 }
 
 
-change_mount_rights() {
+change_mount_rules() {
 
   backup "$MOUNT_SD" "$MOUNT_BACKUP_ERR"
 
   # replace
   #sed -i s:'DEVNAME=$2':'DEVNAME=$2\n\n# trying to mount bind owncloud directory (on sd) to dir on sd\nunset MASK\nMASK="fmask=0002,dmask=0002"':g "$MOUNT_SD"
   #sed -i s:'mount ${DEVNAME} $MNT/${UUID} -o uid=$DEF_UID,gid=$DEF_GID,$MOUNT_OPTS,utf8,flush,discard || /bin/rmdir $MNT/${UUID}':'mount ${DEVNAME} $MNT/${UUID} -o uid=$DEF_UID,gid=$DEF_GID,$MOUNT_OPTS,utf8,flush,discard,$MASK || /bin/rmdir $MNT/${UUID}\n      mount --bind  $MNT/${UUID}/owncloud/ /home/nemo/android_storage/owncloud':g "$MOUNT_SD"
-  patch_file "$MOUNT_SD" "sd_mount_permission.patch" "$MOUNT_CHANGE_ERR"
+  patch_file "$MOUNT_SD" "sd_mount.patch" "$MOUNT_CHANGE_ERR"
 
 }
 
@@ -165,7 +165,7 @@ main() {
 
   remove_volume_warning
   remove_word_prediction
-  change_mount_rights
+  change_mount_rules
 }
 
 

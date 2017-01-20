@@ -1,5 +1,5 @@
---- /usr/sbin/mount-sd.sh.bak	2016-12-28 02:16:35.245889762 +0100
-+++ /usr/sbin/mount-sd.sh	2016-12-28 02:18:07.204015801 +0100
+--- /usr/sbin/mount-sd.sh.bak	2016-12-28 12:16:35.245889762 +1100
++++ /usr/sbin/mount-sd.sh	2017-01-13 19:38:35.244618482 +1100
 @@ -11,6 +11,9 @@
  ACTION=$1
  DEVNAME=$2
@@ -10,13 +10,14 @@
  if [ -z "${ACTION}" ]; then
      systemd-cat -t mount-sd /bin/echo "ERROR: Action needs to be defined."
      exit 1
-@@ -71,7 +74,8 @@
+@@ -71,7 +74,9 @@
  
      case "${TYPE}" in
  	vfat|exfat)
 -	    mount ${DEVNAME} $MNT/${UUID} -o uid=$DEF_UID,gid=$DEF_GID,$MOUNT_OPTS,utf8,flush,discard || /bin/rmdir $MNT/${UUID}
 +      mount ${DEVNAME} $MNT/${UUID} -o uid=$DEF_UID,gid=$DEF_GID,$MOUNT_OPTS,utf8,flush,discard,$MASK || /bin/rmdir $MNT/${UUID}
 +      mount --bind  $MNT/${UUID}/owncloud/ /home/nemo/android_storage/owncloud
++      mount --bind  $MNT/${UUID}/WhatsApp/ /home/nemo/android_storage/WhatsApp
  	    ;;
  	# NTFS support has not been tested but it's being left to please the ego of an engineer!
  	ntfs)
