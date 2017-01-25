@@ -37,15 +37,13 @@ usage() {
   echo "- remove headphone high level volume warning"
   echo "- remove word prediction buttons from keyboard"
   echo "- change SD card mount rights (umask and fmask 0002)"
-  echo
-  echo "It can also remove auto capitalization feature. To do it add '-r' parameter to script. It will remove only this feature"
+  echo "- remove auto capitalization keyboard feature"
   echo
   echo "Usage:"
   echo
-  echo "  $0 [-rh]"
+  echo "  $0 [-h]"
   echo
   echo "Where:"
-  echo "  -r - remove auto capitalization keyboard feature"
   echo "  -h - show this help and exit"
   echo
 }
@@ -135,12 +133,8 @@ remove_autocapitalization() {
 
 main() {
 
-  while getopts ":rh" optname; do
+  while getopts ":h" optname; do
     case "$optname" in
-      "r")
-        remove_autocapitalization
-        exit 0
-      ;;
       "h")
         usage
         exit 0
@@ -162,10 +156,18 @@ main() {
     esac
   done
 
-
+  # install 'patch' package - required to do the changes
+  pkcon refresh
+  pkcon install patch
+  if [ "0" != "$?" ]; then
+    echo "Cannot install 'patch' package"
+    exit "$INSTALL_ERR"
+  fi
+  
   remove_volume_warning
   remove_word_prediction
   change_mount_rules
+  remove_autocapitalization
 }
 
 
@@ -174,14 +176,6 @@ main() {
 if [ "root" != "$(whoami)" ]; then
   echo "You must run this script as root!"
   exit "$ROOT_ERR"
-fi
-
-
-# install 'patch' package - required to do the changes
-pkcon install patch
-if [ "0" != "$?" ]; then
-  echo "Cannot install 'patch' package"
-  exit "$INSTALL_ERR"
 fi
 
 
