@@ -1,5 +1,5 @@
 # jolla-features-remover
-Bash script to change features from jolla phone:
+Bash script to change features on jolla phone:
 - removes high volume headphones warning indicator 
 - removes word prediction in keyboard
 - sets umask and fmask options for sd card mount (fmask=umask=0002). Needed to:
